@@ -1,12 +1,24 @@
 import React from "react";
+import { useRef } from "react";
 import Header from "./Header";
+import { checkValidData } from "../utils/validate";
 
 const Login = () => {
 
   const [isSignInFrom, setIsSignInForm] = React.useState(true);
+  const [validationError, setValidationError] = React.useState(null);
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInFrom);
+  }
+
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleButtonClick = () => {
+    const validationError = checkValidData(email.current.value, password.current.value);
+    setValidationError(validationError);
   }
 
   return (
@@ -20,13 +32,14 @@ const Login = () => {
         />
       </div>
 
-      <form className="absolute top-1/2 left-1/2 flex w-80 -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded bg-black/75 px-8 pt-3 pb-8">
+      <form onSubmit={(e) => e.preventDefault()} className="absolute top-1/2 left-1/2 flex w-80 -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded bg-black/75 px-8 pt-3 pb-8">
         <h1 className="py-1 text-3xl font-bold text-white">
           {isSignInFrom ? "Sign In" : "Sign Up"}
         </h1>
 
         {isSignInFrom || (
           <input 
+            ref = {name}
             className="rounded bg-gray-700 p-3 text-white"
             type="text"
             placeholder="Full Name"
@@ -34,18 +47,22 @@ const Login = () => {
         )}
 
         <input
+          ref = {email}
           className="rounded bg-gray-700 p-3 text-white"
           type="text"
           placeholder="Email or phone number"
         />
 
         <input
+          ref = {password}
           className="rounded bg-gray-700 p-3 text-white"
           type="password"
           placeholder="Password"
         />
+       
+       <p className="text-red-500">{validationError}</p>
 
-        <button className="rounded bg-red-600 p-3 text-white" type="submit">
+        <button className="rounded bg-red-600 p-3 text-white" type="submit" onClick={handleButtonClick}>
           {isSignInFrom ? "Sign In" : "Sign Up"}
         </button>
 
