@@ -18,3 +18,8 @@
 
    - create react app
    - configured tailwindcss
+
+   # Deployment 
+   
+   - npm run build
+   - firebase deploy
