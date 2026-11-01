@@ -49,7 +49,7 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 z-50 flex w-full items-center justify-between bg-linear-to-b from-black/90 to-transparent px-6 py-5 md:px-12">
+    <div className="relative z-50 flex h-16 w-full items-center justify-between bg-black px-4 py-2 md:px-8">
       <img
         className="w-34"
         src={Logo}
